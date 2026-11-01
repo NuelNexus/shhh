@@ -8,7 +8,7 @@ from .predict import format_prediction, predict_match
 
 def main():
     ap = argparse.ArgumentParser(prog="python -m predictor",
-                                 description="International football match predictor")
+                                 description="Football match predictor (national teams and European leagues)")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("predict", help="predict one match")
@@ -18,6 +18,9 @@ def main():
                    help="team_a plays at home (default: neutral venue, as at a World Cup)")
     p.add_argument("--knockout", action="store_true",
                    help="also show chance to advance after extra time and penalties")
+    p.add_argument("--club", action="store_true",
+                   help="club game (team_a at home), e.g. predict --club Liverpool Arsenal")
+    p.add_argument("--date", default=None, help="match date for player news (default: today)")
 
     r = sub.add_parser("ratings", help="show the strongest teams")
     r.add_argument("-n", type=int, default=25)
@@ -26,6 +29,9 @@ def main():
     b.add_argument("--start", default="2022-01-01")
 
     sub.add_parser("update", help="download the latest results and refit")
+
+    ev = sub.add_parser("evaluate", help="replay every game, compare old vs new model, write a report")
+    ev.add_argument("--quick", action="store_true", help="recent seasons only")
 
     w = sub.add_parser("worldcup", help="simulate a World Cup thousands of times")
     g = w.add_mutually_exclusive_group(required=True)
@@ -45,9 +51,7 @@ def main():
 
     args = ap.parse_args()
     if args.cmd == "predict":
-        m = get_model()
-        print(format_prediction(predict_match(m, args.team_a, args.team_b,
-                                              neutral=not args.home, knockout=args.knockout)))
+        run_predict(args)
     elif args.cmd == "ratings":
         m = get_model()
         rows = []
@@ -68,13 +72,53 @@ def main():
         update_data()
         get_model(refit=True)
         from .clubs import update_club_data, get_club_model
+        from .live_pl import update_live
         update_club_data()
+        try:
+            update_live()
+        except Exception as e:  # optional source
+            print(f"Live Premier League data not updated: {e}")
         get_club_model(refit=True)
         print("Models refitted.")
+    elif args.cmd == "evaluate":
+        from .report import run_report
+        run_report(quick=args.quick)
     elif args.cmd == "worldcup":
         run_worldcup(args)
     elif args.cmd == "matches":
         run_matches(args)
+
+
+def run_predict(args):
+    import datetime as dt
+    import pandas as pd
+    date = pd.Timestamp(args.date or dt.date.today())
+    if args.club:
+        from .clubs import club_match_features, get_club_model, resolve_club, load_club_matches
+        m = get_club_model()
+        home, away = resolve_club(args.team_a, m), resolve_club(args.team_b, m)
+        played, _ = load_club_matches()
+        feats, missing, source, league = club_match_features(home, away, date, played)
+        p = predict_match(m, home, away, neutral=False, knockout=args.knockout,
+                          features=feats, league=league, resolve=lambda n, _: n)
+        p["missing"], p["source"] = missing, source
+        print(format_prediction(p))
+        return
+    from .features import player_tables
+    from .predict import resolve_team
+    m = get_model()
+    a, b = resolve_team(args.team_a, m), resolve_team(args.team_b, m)
+    feats, missing = {}, {}
+    t = player_tables()
+    if t is not None:
+        sa, va = t.nation_features(a, [date])
+        sb, vb = t.nation_features(b, [date])
+        feats = {"squad_diff": float(sa[0] - sb[0]), "avail_diff": float(va[0] - vb[0])}
+        if not t._stale([date])[0]:
+            missing = {x: [(n, "") for n, _ in t.missing_players(x, date, kind="nation")] for x in (a, b)}
+    p = predict_match(m, a, b, neutral=not args.home, knockout=args.knockout, features=feats)
+    p["missing"] = missing
+    print(format_prediction(p))
 
 
 def run_worldcup(args):
@@ -95,9 +139,11 @@ def run_worldcup(args):
             raise SystemExit(f"No World Cup found in {args.replay}.")
         kickoff = wc["date"].min()
         print(f"Fitting model on matches before {kickoff.date()} only...")
-        model = Model.fit(df, cutoff=kickoff)
+        from .features import add_features
+        from .model import NATION_SETTINGS
+        model = Model.fit(add_features(df, "nation"), cutoff=kickoff, settings=NATION_SETTINGS)
         hosts = args.hosts if args.hosts is not None else HOSTS.get(args.replay, [])
-        res = Simulator(model, hosts, rng).run(groups, args.n)
+        res = Simulator(model, hosts, rng, date=kickoff).run(groups, args.n)
         shootouts = pd.read_csv(DATA_DIR / "shootouts.csv")
         actual = actual_finish(wc, groups, shootouts)
         res["actual"] = res["team"].map(actual)
@@ -119,7 +165,7 @@ def run_worldcup(args):
     if args.groups:
         groups = [[resolve_team(t, model) for t in g] for g in json.load(open(args.groups))]
         hosts = [resolve_team(h, model) for h in (args.hosts or [])]
-        res = Simulator(model, hosts, rng).run(groups, args.n)
+        res = Simulator(model, hosts, rng, date=pd.Timestamp.today().normalize()).run(groups, args.n)
         print(f"\nCustom World Cup, {args.n:,} simulations\n")
         print(format_table(res, args.top))
         return
@@ -129,7 +175,7 @@ def run_worldcup(args):
     hosts = [resolve_team(h, model) for h in hosts]
     n_draws = 100
     per_draw = max(args.n // n_draws, 1)
-    sim = Simulator(model, hosts, rng)
+    sim = Simulator(model, hosts, rng, date=pd.Timestamp.today().normalize())
     total = None
     for _ in range(n_draws):
         groups, field = hypothetical_draw(model, hosts, rng)
@@ -147,48 +193,54 @@ def run_worldcup(args):
 
 def run_matches(args):
     import datetime as dt
+    import numpy as np
     import pandas as pd
-    from .clubs import LEAGUES, get_club_model, load_club_matches
+    from .clubs import LEAGUES, club_match_features, get_club_model, load_club_matches
     from .data import DATA_DIR
 
     today = dt.date.today()
     words = {"today": today, "yesterday": today - dt.timedelta(days=1)}
-    dates = args.dates or ["yesterday", "today"]
-    dates = [pd.Timestamp(words.get(d, d)) for d in dates]
+    dates = [pd.Timestamp(words.get(d, d)) for d in (args.dates or ["yesterday", "today"])]
 
-    # National teams: unplayed fixtures listed in the results file, if any.
     nat = pd.read_csv(DATA_DIR / "results.csv", parse_dates=["date"])
     nat = nat[nat["date"].isin(dates)]
-    played_c, fixtures_c = load_club_matches()
-    clubs = pd.concat([played_c, fixtures_c])
+    played, fixtures = load_club_matches()
+    from .live_pl import add_live_results
+    played, fixtures = add_live_results(played, fixtures)
+    clubs = pd.concat([played, fixtures])
     clubs = clubs[clubs["date"].isin(dates)]
 
-    def show(title, games, model):
+    def show(title, games, model, club):
         print(f"\n== {title} ==")
-        print(f"  {'date':10s} {'home':26s} {'away':26s} {'home':>5s} {'draw':>5s} {'away':>5s}"
+        print(f"  {'date':10s} {'home':24s} {'away':24s} {'home':>5s} {'draw':>5s} {'away':>5s}"
               f"   {'xG':>9s}  {'likely':>6s}  {'result':>6s}")
         for _, g in games.iterrows():
             h, a = g["home_team"], g["away_team"]
-            lh, la = model.rates(h, a, bool(g["neutral"]))
+            feats, missing, league = {}, {}, None
+            if club:
+                feats, missing, _, league = club_match_features(h, a, g["date"], played)
+            lh, la = model.rates(h, a, bool(g["neutral"]), features=feats, league=league)
             grid = model.score_grid(lh, la)
             pw, pdw, pl = np.tril(grid, -1).sum(), np.trace(grid), np.triu(grid, 1).sum()
             i, j = np.unravel_index(grid.argmax(), grid.shape)
             res = "" if pd.isna(g["home_score"]) else f"{int(g['home_score'])}-{int(g['away_score'])}"
-            print(f"  {g['date'].date()!s:10s} {h[:26]:26s} {a[:26]:26s} {100*pw:4.0f}% {100*pdw:4.0f}% {100*pl:4.0f}%"
+            print(f"  {g['date'].date()!s:10s} {h[:24]:24s} {a[:24]:24s} {100*pw:4.0f}% {100*pdw:4.0f}% {100*pl:4.0f}%"
                   f"   {lh:.1f} - {la:.1f}  {i}-{j:<4d}  {res:>6s}")
+            for t, out in missing.items():
+                if out:
+                    print(f"{'':14s}{t[:24]} without: {', '.join(n for n, _ in out[:4])}")
 
-    import numpy as np
     if len(nat):
-        show("International", nat, get_model())
+        show("International", nat, get_model(), False)
     else:
         print("\nNo national-team matches on these dates.")
     if len(clubs):
         model = get_club_model()
-        print(f"\n(Club ratings use results up to {played_c['date'].max().date()}, the latest in the open data.)")
+        print(f"\n(Club results up to {played['date'].max().date()}; Premier League includes live data.)")
         for code, name in LEAGUES.items():
             games = clubs[clubs["league"] == code]
             if len(games):
-                show(name, games, model)
+                show(name, games, model, True)
     else:
         print("No club matches found on these dates.")
 

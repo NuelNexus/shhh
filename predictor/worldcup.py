@@ -33,11 +33,29 @@ def bracket_order(n):
 
 
 class Simulator:
-    def __init__(self, model: Model, hosts=(), rng=None):
+    def __init__(self, model: Model, hosts=(), rng=None, date=None):
         self.m = model
         self.hosts = set(hosts)
         self.rng = rng or np.random.default_rng()
         self._adv = {}
+
+        self.date = date
+        self._team_feats = {}
+
+    def _feats(self, a, b):
+        """Squad value / injury gap between two teams on the tournament date."""
+        if not self.m.gamma or self.date is None:
+            return None
+        from .features import player_tables
+        tables = player_tables()
+        if tables is None:
+            return None
+        for t in (a, b):
+            if t not in self._team_feats:
+                sq, av = tables.nation_features(t, [self.date])
+                self._team_feats[t] = (sq[0], av[0])
+        (sa, va), (sb, vb) = self._team_feats[a], self._team_feats[b]
+        return {"squad_diff": sa - sb, "avail_diff": va - vb}
 
     def _neutral(self, a, b):
         return not (a in self.hosts and b not in self.hosts)
@@ -45,7 +63,7 @@ class Simulator:
     def _grid(self, a, b):
         if b in self.hosts and a not in self.hosts:  # host listed second: flip
             return self._grid(b, a).T
-        return self.m.score_grid(*self.m.rates(a, b, self._neutral(a, b)))
+        return self.m.score_grid(*self.m.rates(a, b, self._neutral(a, b), features=self._feats(a, b)))
 
     def advance_prob(self, a, b):
         key = (a, b)
@@ -53,9 +71,9 @@ class Simulator:
             g = self._grid(a, b)
             pa, pd_ = np.tril(g, -1).sum(), np.trace(g)
             if b in self.hosts and a not in self.hosts:
-                lb, la = self.m.rates(b, a, False)
+                lb, la = self.m.rates(b, a, False, features=self._feats(b, a))
             else:
-                la, lb = self.m.rates(a, b, self._neutral(a, b))
+                la, lb = self.m.rates(a, b, self._neutral(a, b), features=self._feats(a, b))
             et = np.outer(poisson.pmf(np.arange(8), la / 3), poisson.pmf(np.arange(8), lb / 3))
             et /= et.sum()
             self._adv[key] = pa + pd_ * (np.tril(et, -1).sum() + np.trace(et) * 0.5)

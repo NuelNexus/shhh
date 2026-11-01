@@ -21,7 +21,7 @@ def expected(diff: float) -> float:
     return 1.0 / (10 ** (-diff / 400) + 1)
 
 
-def run_elo(df, new_team_rating=None, reset_at=None):
+def run_elo(df, new_team_rating=None, reset_at=None, k_scale=1.0, home_bonus=HOME_BONUS):
     """Run through every match in date order.
 
     new_team_rating(team, row_number, ratings) sets the starting rating of a team
@@ -41,10 +41,10 @@ def run_elo(df, new_team_rating=None, reset_at=None):
                 ratings[t] = new_team_rating(t, i, ratings) if new_team_rating else START
         rh, ra = ratings[h], ratings[a]
         pre_h[i], pre_a[i] = rh, ra
-        diff = rh - ra + (0 if neutral else HOME_BONUS)
+        diff = rh - ra + (0 if neutral else home_bonus)
         we = expected(diff)
         w = 1.0 if hs > as_ else 0.5 if hs == as_ else 0.0
-        k = ELO_K[competition_tier(tour)] * goal_multiplier(hs - as_)
+        k = k_scale * ELO_K[competition_tier(tour)] * goal_multiplier(hs - as_)
         change = k * (w - we)
         ratings[h] = rh + change
         ratings[a] = ra - change

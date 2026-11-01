@@ -1,3 +1,4 @@
 predictor/data/model.pkl
 __pycache__/
 predictor/data/clubs/model.pkl
+predictor/data/odds/

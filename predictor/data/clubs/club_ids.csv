@@ -1,0 +1,284 @@
+league,name,tm_id,tm_name,match_score
+en.1,AFC Bournemouth,989,AFC Bournemouth,1.0
+en.1,Arsenal FC,11,Arsenal FC,1.0
+en.1,Aston Villa,405,Aston Villa,1.0
+en.1,Aston Villa FC,405,Aston Villa,1.0
+en.1,Brentford FC,1148,Brentford FC,1.0
+en.1,Brighton & Hove Albion,1237,Brighton & Hove Albion,1.0
+en.1,Brighton & Hove Albion FC,1237,Brighton & Hove Albion,1.0
+en.1,Burnley FC,1132,Burnley FC,1.0
+en.1,Cardiff City,603,Cardiff City,1.0
+en.1,Chelsea FC,631,Chelsea FC,1.0
+en.1,Coventry City FC,990,Coventry City,1.0
+en.1,Crystal Palace,873,Crystal Palace,1.0
+en.1,Crystal Palace FC,873,Crystal Palace,1.0
+en.1,Everton FC,29,Everton FC,1.0
+en.1,Fulham FC,931,Fulham FC,1.0
+en.1,Huddersfield Town,1110,Huddersfield Town,1.0
+en.1,Hull City,3008,Hull City,1.0
+en.1,Hull City AFC,3008,Hull City,1.0
+en.1,Ipswich Town FC,677,Ipswich Town,1.0
+en.1,Leeds United FC,399,Leeds United,1.0
+en.1,Leicester City,1003,Leicester City,1.0
+en.1,Leicester City FC,1003,Leicester City,1.0
+en.1,Liverpool FC,31,Liverpool FC,1.0
+en.1,Luton Town FC,1031,Luton Town,1.0
+en.1,Manchester City,281,Manchester City,1.0
+en.1,Manchester City FC,281,Manchester City,1.0
+en.1,Manchester United,985,Manchester United,1.0
+en.1,Manchester United FC,985,Manchester United,1.0
+en.1,Middlesbrough FC,641,Middlesbrough FC,1.0
+en.1,Newcastle United,762,Newcastle United,1.0
+en.1,Newcastle United FC,762,Newcastle United,1.0
+en.1,Norwich City,1123,Norwich City,1.0
+en.1,Norwich City FC,1123,Norwich City,1.0
+en.1,Nottingham Forest FC,703,Nottingham Forest,1.0
+en.1,Sheffield United,350,Sheffield United,1.0
+en.1,Sheffield United FC,350,Sheffield United,1.0
+en.1,Southampton FC,180,Southampton FC,1.0
+en.1,Stoke City,512,Stoke City,1.0
+en.1,Sunderland AFC,289,Sunderland AFC,1.0
+en.1,Swansea City,2288,Swansea City,1.0
+en.1,Tottenham Hotspur,148,Tottenham Hotspur,1.0
+en.1,Tottenham Hotspur FC,148,Tottenham Hotspur,1.0
+en.1,Watford FC,1010,Watford FC,1.0
+en.1,West Bromwich Albion,984,West Bromwich Albion,1.0
+en.1,West Bromwich Albion FC,984,West Bromwich Albion,1.0
+en.1,West Ham United,379,West Ham United,1.0
+en.1,West Ham United FC,379,West Ham United,1.0
+en.1,Wolverhampton Wanderers,543,Wolverhampton Wanderers,1.0
+en.1,Wolverhampton Wanderers FC,543,Wolverhampton Wanderers,1.0
+es.1,Athletic Club,621,Athletic Bilbao,1.0
+es.1,Atlético Madrid,13,Atlético de Madrid,1.0
+es.1,CA Osasuna,331,CA Osasuna,1.0
+es.1,CD Alavés,1108,Deportivo Alavés,1.0
+es.1,CD Leganés,1244,CD Leganés,1.0
+es.1,Club Atlético de Madrid,13,Atlético de Madrid,1.0
+es.1,Cádiz CF,2687,Cádiz CF,1.0
+es.1,Deportivo Alavés,1108,Deportivo Alavés,1.0
+es.1,Deportivo La Coruña,897,Deportivo de La Coruña,1.0
+es.1,Elche CF,1531,Elche CF,1.0
+es.1,Espanyol Barcelona,714,RCD Espanyol Barcelona,1.0
+es.1,FC Barcelona,131,FC Barcelona,1.0
+es.1,Getafe CF,3709,Getafe CF,1.0
+es.1,Girona FC,12321,Girona FC,1.0
+es.1,Granada CF,16795,Granada CF,1.0
+es.1,Levante UD,3368,Levante UD,1.0
+es.1,Málaga CF,1084,Málaga CF,1.0
+es.1,RC Celta,940,Celta de Vigo,0.67
+es.1,RC Celta de Vigo,940,Celta de Vigo,1.0
+es.1,RC Deportivo La Coruña,897,Deportivo de La Coruña,1.0
+es.1,RCD Espanyol de Barcelona,714,RCD Espanyol Barcelona,1.0
+es.1,RCD Mallorca,237,RCD Mallorca,1.0
+es.1,Rayo Vallecano,367,Rayo Vallecano,1.0
+es.1,Rayo Vallecano de Madrid,367,Rayo Vallecano,0.8
+es.1,Real Betis,150,Real Betis Balompié,0.69
+es.1,Real Betis Balompié,150,Real Betis Balompié,1.0
+es.1,Real Madrid,418,Real Madrid,1.0
+es.1,Real Madrid CF,418,Real Madrid,1.0
+es.1,Real Oviedo,2497,Real Oviedo,1.0
+es.1,Real Racing Club de Santander,630,Racing Santander,0.86
+es.1,Real Sociedad,681,Real Sociedad,1.0
+es.1,Real Sociedad de Fútbol,681,Real Sociedad,1.0
+es.1,Real Valladolid,366,Real Valladolid CF,1.0
+es.1,Real Valladolid CF,366,Real Valladolid CF,1.0
+es.1,SD Eibar,1533,SD Eibar,1.0
+es.1,SD Huesca,5358,SD Huesca,1.0
+es.1,Sevilla FC,368,Sevilla FC,1.0
+es.1,Sporting Gijón,2448,Sporting Gijón,1.0
+es.1,UD Almería,3302,UD Almería,1.0
+es.1,UD Las Palmas,472,UD Las Palmas,1.0
+es.1,Valencia CF,1049,Valencia CF,1.0
+es.1,Villarreal CF,1050,Villarreal CF,1.0
+de.1,1. FC Heidenheim 1846,2036,1.FC Heidenheim 1846,1.0
+de.1,1. FC Köln,3,1.FC Köln,1.0
+de.1,1. FC Nürnberg,4,1.FC Nuremberg,0.82
+de.1,1. FC Union Berlin,89,1.FC Union Berlin,1.0
+de.1,1. FSV Mainz 05,39,1.FSV Mainz 05,1.0
+de.1,1899 Hoffenheim,533,TSG 1899 Hoffenheim,1.0
+de.1,Arminia Bielefeld,10,Arminia Bielefeld,1.0
+de.1,Bayer 04 Leverkusen,15,Bayer 04 Leverkusen,1.0
+de.1,Bayer Leverkusen,15,Bayer 04 Leverkusen,1.0
+de.1,Bayern München,27,Bayern Munich,1.0
+de.1,Bor. Mönchengladbach,18,Borussia Mönchengladbach,0.88
+de.1,Borussia Dortmund,16,Borussia Dortmund,1.0
+de.1,Borussia Mönchengladbach,18,Borussia Mönchengladbach,1.0
+de.1,Eintracht Frankfurt,24,Eintracht Frankfurt,1.0
+de.1,FC Augsburg,167,FC Augsburg,1.0
+de.1,FC Bayern München,27,Bayern Munich,1.0
+de.1,FC Ingolstadt 04,4795,FC Ingolstadt 04,1.0
+de.1,FC Schalke 04,33,FC Schalke 04,1.0
+de.1,FC St. Pauli 1910,35,FC St. Pauli,1.0
+de.1,Fortuna Düsseldorf,38,Fortuna Düsseldorf,1.0
+de.1,Hamburger SV,41,Hamburger SV,1.0
+de.1,Hannover 96,42,Hannover 96,1.0
+de.1,Hertha BSC,44,Hertha BSC,1.0
+de.1,Holstein Kiel,269,Holstein Kiel,1.0
+de.1,RB Leipzig,23826,RB Leipzig,1.0
+de.1,SC Freiburg,60,SC Freiburg,1.0
+de.1,SC Paderborn 07,127,SC Paderborn 07,1.0
+de.1,SV 07 Elversberg,64,SV 07 Elversberg,1.0
+de.1,SV Darmstadt 98,105,SV Darmstadt 98,1.0
+de.1,SV Werder Bremen,86,SV Werder Bremen,1.0
+de.1,SpVgg Greuther Fürth 1903,65,SpVgg Greuther Fürth,1.0
+de.1,TSG 1899 Hoffenheim,533,TSG 1899 Hoffenheim,1.0
+de.1,VfB Stuttgart,79,VfB Stuttgart,1.0
+de.1,VfL Bochum 1848,80,VfL Bochum,1.0
+de.1,VfL Wolfsburg,82,VfL Wolfsburg,1.0
+de.1,Werder Bremen,86,SV Werder Bremen,1.0
+it.1,AC Milan,5,AC Milan,1.0
+it.1,AC Monza,2919,AC Monza,1.0
+it.1,AC Pisa 1909,4172,Pisa Sporting Club,1.0
+it.1,ACF Fiorentina,430,ACF Fiorentina,1.0
+it.1,AS Roma,12,AS Roma,1.0
+it.1,Atalanta,800,Atalanta BC,0.84
+it.1,Atalanta BC,800,Atalanta BC,1.0
+it.1,Benevento Calcio,4171,Benevento Calcio,1.0
+it.1,Bologna FC,1025,Bologna FC 1909,1.0
+it.1,Bologna FC 1909,1025,Bologna FC 1909,1.0
+it.1,Brescia Calcio,19,Brescia Calcio (- 2025),1.0
+it.1,Cagliari Calcio,1390,Cagliari Calcio,1.0
+it.1,Carpi FC,4102,AC Carpi,1.0
+it.1,Chievo Verona,862,Chievo Verona,1.0
+it.1,Como 1907,1047,Como 1907,1.0
+it.1,Delfino Pescara,2921,Delfino Pescara 1936,1.0
+it.1,Empoli FC,749,FC Empoli,1.0
+it.1,FC Crotone,4083,FC Crotone,1.0
+it.1,FC Internazionale Milano,46,Inter Milan,0.96
+it.1,Frosinone Calcio,8970,Frosinone Calcio,1.0
+it.1,Genoa CFC,252,Genoa CFC,1.0
+it.1,Hellas Verona,276,Hellas Verona,1.0
+it.1,Hellas Verona FC,276,Hellas Verona,1.0
+it.1,Inter,46,Inter Milan,0.62
+it.1,Juventus,506,Juventus FC,1.0
+it.1,Juventus FC,506,Juventus FC,1.0
+it.1,Lazio Roma,398,SS Lazio,0.67
+it.1,Parma Calcio 1913,130,Parma Calcio 1913,1.0
+it.1,SPAL 2013 Ferrara,2722,SPAL,1.0
+it.1,SS Lazio,398,SS Lazio,1.0
+it.1,SSC Napoli,6195,SSC Napoli,1.0
+it.1,Sampdoria,1038,UC Sampdoria,0.86
+it.1,Sassuolo Calcio,6574,US Sassuolo,1.0
+it.1,Spezia Calcio,3522,Spezia Calcio,1.0
+it.1,Torino FC,416,Torino FC,1.0
+it.1,UC Sampdoria,1038,UC Sampdoria,1.0
+it.1,US Cremonese,2239,US Cremonese,1.0
+it.1,US Lecce,1005,US Lecce,1.0
+it.1,US Palermo,458,Palermo FC,1.0
+it.1,US Salernitana 1919,380,US Salernitana 1919,1.0
+it.1,US Sassuolo Calcio,6574,US Sassuolo,1.0
+it.1,Udinese Calcio,410,Udinese Calcio,1.0
+it.1,Venezia FC,607,Venezia FC,1.0
+fr.1,AC Ajaccio,1147,AC Ajaccio,1.0
+fr.1,AJ Auxerre,290,AJ Auxerre,1.0
+fr.1,AS Monaco,162,AS Monaco,1.0
+fr.1,AS Monaco FC,162,AS Monaco,1.0
+fr.1,AS Nancy Lorraine,1159,AS Nancy-Lorraine,1.0
+fr.1,AS Saint-Étienne,618,AS Saint-Étienne,1.0
+fr.1,Amiens SC,1416,Amiens SC,1.0
+fr.1,Angers SCO,1420,Angers SCO,1.0
+fr.1,Clermont Foot 63,3524,Clermont Foot 63,1.0
+fr.1,Dijon FCO,2969,Dijon FCO,1.0
+fr.1,EA Guingamp,855,EA Guingamp,1.0
+fr.1,ES Troyes AC,1095,ESTAC Troyes,0.86
+fr.1,ESTAC Troyes,1095,ESTAC Troyes,1.0
+fr.1,FC Lorient,1158,FC Lorient,1.0
+fr.1,FC Metz,347,FC Metz,1.0
+fr.1,FC Nantes,995,FC Nantes,1.0
+fr.1,Gazélec FC Ajaccio,3558,GFC Ajaccio,0.77
+fr.1,Girondins Bordeaux,40,FC Girondins Bordeaux,1.0
+fr.1,Le Havre AC,738,Le Havre AC,1.0
+fr.1,Le Mans FC,1164,Le Mans FC,1.0
+fr.1,Lille OSC,1082,LOSC Lille,1.0
+fr.1,Montpellier HSC,969,Montpellier HSC,1.0
+fr.1,Nîmes Olympique,1160,Nîmes Olympique,1.0
+fr.1,OGC Nice,417,OGC Nice,1.0
+fr.1,Olympique Lyonnais,1041,Olympique Lyon,0.88
+fr.1,Olympique Marseille,244,Olympique Marseille,1.0
+fr.1,Olympique de Marseille,244,Olympique Marseille,1.0
+fr.1,Paris FC,10004,Paris FC,1.0
+fr.1,Paris Saint-Germain,583,Paris Saint-Germain,1.0
+fr.1,Paris Saint-Germain FC,583,Paris Saint-Germain,1.0
+fr.1,RC Lens,826,RC Lens,1.0
+fr.1,RC Strasbourg,667,RC Strasbourg Alsace,0.74
+fr.1,RC Strasbourg Alsace,667,RC Strasbourg Alsace,1.0
+fr.1,Racing Club de Lens,826,RC Lens,1.0
+fr.1,SC Bastia,595,SC Bastia,1.0
+fr.1,SM Caen,1162,SM Caen,1.0
+fr.1,Stade Brestois 29,3911,Stade Brestois 29,1.0
+fr.1,Stade Rennais,273,Stade Rennais FC,1.0
+fr.1,Stade Rennais FC 1901,273,Stade Rennais FC,1.0
+fr.1,Stade de Reims,1421,Stade Reims,1.0
+fr.1,Toulouse FC,415,FC Toulouse,1.0
+pt.1,AVS,110302,Avs Futebol,1.0
+pt.1,Académico de Viseu FC,7788,Académico Viseu FC,1.0
+pt.1,Belenenses SAD,2457,B SAD,1.0
+pt.1,Boavista,2503,Boavista FC,1.0
+pt.1,Boavista FC,2503,Boavista FC,1.0
+pt.1,CD Aves,3336,Desportivo Aves (- 2020),1.0
+pt.1,CD Feirense,3349,CD Feirense,1.0
+pt.1,CD Nacional,982,CD Nacional,1.0
+pt.1,CD Santa Clara,2423,CD Santa Clara,1.0
+pt.1,CD Tondela,7179,CD Tondela,1.0
+pt.1,CF Estrela da Amadora,2431,CF Estrela Amadora,0.91
+pt.1,CS Marítimo,1301,CS Marítimo,1.0
+pt.1,Casa Pia AC,3268,Casa Pia AC,1.0
+pt.1,FC Alverca,2521,FC Alverca,1.0
+pt.1,FC Arouca,8024,FC Arouca,1.0
+pt.1,FC Famalicão,3329,FC Famalicão,1.0
+pt.1,FC Porto,720,FC Porto,1.0
+pt.1,FC Vizela,6912,FC Vizela,1.0
+pt.1,GD Chaves,3325,GD Chaves,1.0
+pt.1,GD Estoril,1465,GD Estoril Praia,0.7
+pt.1,GD Estoril Praia,1465,GD Estoril Praia,1.0
+pt.1,Gil Vicente,2424,Gil Vicente FC,1.0
+pt.1,Gil Vicente FC,2424,Gil Vicente FC,1.0
+pt.1,Moreirense FC,979,Moreirense FC,1.0
+pt.1,Paços de Ferreira,2995,FC Paços de Ferreira,1.0
+pt.1,Portimonense SC,7378,Portimonense SAD,0.86
+pt.1,Rio Ave FC,2425,Rio Ave FC,1.0
+pt.1,SC Farense,4294,SC Farense,1.0
+pt.1,SL Benfica,294,SL Benfica,1.0
+pt.1,Sport Lisboa e Benfica,294,SL Benfica,1.0
+pt.1,Sporting Braga,1075,SC Braga,1.0
+pt.1,Sporting CP,336,Sporting CP,1.0
+pt.1,Sporting Clube de Braga,1075,SC Braga,1.0
+pt.1,Sporting Clube de Portugal,336,Sporting CP,0.65
+pt.1,Vitória Guimarães,2420,Vitória Guimarães SC,1.0
+pt.1,Vitória Setúbal,1085,Vitória Setúbal FC,1.0
+nl.1,ADO Den Haag,1268,ADO Den Haag,1.0
+nl.1,AFC Ajax,610,Ajax Amsterdam,1.0
+nl.1,AZ,1090,AZ Alkmaar,1.0
+nl.1,AZ Alkmaar,1090,AZ Alkmaar,1.0
+nl.1,Almere City FC,723,Almere City FC,1.0
+nl.1,De Graafschap,642,De Graafschap Doetinchem,0.65
+nl.1,FC Emmen,1283,FC Emmen,1.0
+nl.1,FC Groningen,202,FC Groningen,1.0
+nl.1,FC Twente,317,Twente Enschede FC,1.0
+nl.1,FC Twente '65,317,Twente Enschede FC,1.0
+nl.1,FC Utrecht,200,FC Utrecht,1.0
+nl.1,FC Volendam,724,FC Volendam,1.0
+nl.1,Feyenoord,234,Feyenoord Rotterdam,0.64
+nl.1,Feyenoord Rotterdam,234,Feyenoord Rotterdam,1.0
+nl.1,Fortuna Sittard,385,Fortuna Sittard,1.0
+nl.1,Go Ahead Eagles,1435,Go Ahead Eagles,1.0
+nl.1,Heracles Almelo,1304,Heracles Almelo,1.0
+nl.1,NAC Breda,132,NAC Breda,1.0
+nl.1,NEC,467,NEC Nijmegen,1.0
+nl.1,NEC Nijmegen,467,NEC Nijmegen,1.0
+nl.1,PEC Zwolle,1269,PEC Zwolle,1.0
+nl.1,PSV,383,PSV Eindhoven,1.0
+nl.1,PSV Eindhoven,383,PSV Eindhoven,1.0
+nl.1,RKC Waalwijk,235,RKC Waalwijk,1.0
+nl.1,SBV Excelsior,798,Excelsior Rotterdam,1.0
+nl.1,SBV Vitesse,499,Vitesse Arnhem,1.0
+nl.1,SC Cambuur,133,SC Cambuur Leeuwarden,1.0
+nl.1,SC Cambuur-Leeuwarden,133,SC Cambuur Leeuwarden,1.0
+nl.1,SC Heerenveen,306,SC Heerenveen,1.0
+nl.1,Sparta Rotterdam,468,Sparta Rotterdam,1.0
+nl.1,Telstar 1963,1434,SC Telstar,1.0
+nl.1,VVV-Venlo,1426,VVV-Venlo,1.0
+nl.1,Vitesse,499,Vitesse Arnhem,0.67
+nl.1,Willem II,403,Willem II Tilburg,0.69
+nl.1,Willem II Tilburg,403,Willem II Tilburg,1.0
+nl.1,sc Heerenveen,306,SC Heerenveen,1.0

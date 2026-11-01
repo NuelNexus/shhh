@@ -15,10 +15,12 @@ def resolve_team(name, model):
     raise SystemExit(f"Unknown team '{name}'.{hint}")
 
 
-def predict_match(model, team_a, team_b, neutral=True, knockout=False):
+def predict_match(model, team_a, team_b, neutral=True, knockout=False,
+                  features=None, league=None, resolve=None):
     """team_a is the home side when neutral=False."""
-    a, b = resolve_team(team_a, model), resolve_team(team_b, model)
-    la, lb = model.rates(a, b, neutral)
+    resolve = resolve or resolve_team
+    a, b = resolve(team_a, model), resolve(team_b, model)
+    la, lb = model.rates(a, b, neutral, features=features, league=league)
     g = model.score_grid(la, lb)
     p_a, p_d, p_b = np.tril(g, -1).sum(), np.trace(g), np.triu(g, 1).sum()
 
@@ -35,6 +37,7 @@ def predict_match(model, team_a, team_b, neutral=True, knockout=False):
         "over_2_5": g[totals > 2.5].sum(),
         "btts": g[1:, 1:].sum(),
     }
+    out["features"] = features or {}
     if knockout:
         # 30 minutes of extra time = one third of the goal rate, then a 50/50 shootout.
         et = np.outer(poisson.pmf(np.arange(8), la / 3), poisson.pmf(np.arange(8), lb / 3))
@@ -70,6 +73,14 @@ def format_prediction(p):
     if "advance_a" in p:
         lines.append(f"To advance (incl. extra time & penalties): "
                      f"{a} {pct(p['advance_a'])}  |  {b} {pct(p['advance_b'])}")
+    if p.get("missing"):
+        lines.append("")
+        for team, out in p["missing"].items():
+            if out:
+                lines.append(f"{team} missing/doubtful: " + "; ".join(
+                    f"{n} ({why})" if why else n for n, why in out[:6]))
+    if p.get("source"):
+        lines.append(f"(Player news: {p['source']})")
     fav = max([(p["win_a"], f"{a} to win"), (p["draw"], "Draw"), (p["win_b"], f"{b} to win")])
     (si, sj), _ = p["top_scores"][0]
     lines.append(f"\nPick: {fav[1]} ({pct(fav[0]).strip()}), most likely score {si}-{sj}")
