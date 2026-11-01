@@ -57,7 +57,7 @@ class Model:
         """Fit on matches strictly before `cutoff` (default: all data)."""
         settings = settings or Settings()
         if pre_elo is None:
-            final_elo, pre_h, pre_a = run_elo(df)
+            _, pre_h, pre_a = run_elo(df)  # pre-match values only use earlier games
         else:
             pre_h, pre_a = pre_elo
         cutoff = pd.Timestamp(cutoff) if cutoff is not None else df["date"].max() + pd.Timedelta(days=1)

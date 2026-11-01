@@ -22,11 +22,12 @@ def score(probs, outcome):
     }
 
 
-def run_backtest(start="2022-01-01", end=None, refit_days=182, settings=None, verbose=True):
-    df = load_results()
+def run_backtest(start="2022-01-01", end=None, refit_days=182, settings=None, verbose=True,
+                 df=None, elo_fn=run_elo, major_tiers=("world_cup", "continental")):
+    df = load_results() if df is None else df
     if end is not None:
         df = df[df["date"] < pd.Timestamp(end)].reset_index(drop=True)
-    _, pre_h, pre_a = run_elo(df)  # pre-match Elo only uses earlier results
+    _, pre_h, pre_a = elo_fn(df)  # pre-match Elo only uses earlier results
     start = pd.Timestamp(start)
     test_idx = np.where(df["date"] >= start)[0]
     outcome = np.where(df["home_score"] > df["away_score"], 0,
@@ -34,7 +35,7 @@ def run_backtest(start="2022-01-01", end=None, refit_days=182, settings=None, ve
 
     variants = {
         "Full model (Elo + Dixon-Coles)": settings or Settings(),
-        "Elo only": Settings(use_team_strengths=False),
+        "Elo only": Settings(use_team_strengths=False, window_years=(settings or Settings()).window_years),
     }
     preds = {k: np.zeros((len(test_idx), 3)) for k in variants}
     cut = start
@@ -58,15 +59,17 @@ def run_backtest(start="2022-01-01", end=None, refit_days=182, settings=None, ve
     preds["Base rates (no model)"] = np.tile(base, (len(test_idx), 1))
 
     tiers = df["tournament"].iloc[test_idx].map(competition_tier).to_numpy()
-    major = np.isin(tiers, ["world_cup", "continental"])
+    major = np.isin(tiers, list(major_tiers))
     results = {}
     for name, p in preds.items():
-        results[name] = {"all": score(p, y), "major_finals": score(p[major], y[major])}
+        results[name] = {"all": score(p, y)}
+        if major.any():
+            results[name]["major_finals"] = score(p[major], y[major])
 
     if verbose:
         print(f"Backtest: {len(test_idx)} matches from {start.date()} to {df['date'].max().date()}"
-              f" (refit every {refit_days} days; {major.sum()} at World Cup / continental finals)\n")
-        for subset in ["all", "major_finals"]:
+              f" (refit every {refit_days} days)\n")
+        for subset in (["all", "major_finals"] if major.any() else ["all"]):
             print("All matches" if subset == "all" else "World Cup & continental finals only")
             print(f"  {'model':32s} {'accuracy':>9s} {'log loss':>9s} {'brier':>7s} {'RPS':>7s}")
             for name, r in results.items():
